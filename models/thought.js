@@ -25,17 +25,13 @@ const reactionSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
+            getters: true,
         },
-        id: false,
     }
 )
 
 const thoughtSchema = new Schema(
     {
-        thoughtID: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
-        },
         thoughtText: {
             type: String,
             required: true,

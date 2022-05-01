@@ -2,10 +2,6 @@ const { Schema, Types, model } = require('mongoose');
 
 const userSchema = new Schema(
     {
-        userId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
-        },
         userName: {
             type: String,
             required: true,
@@ -16,7 +12,7 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            match: [/^([a-z0-9_\.-]+)@([/da-z\.-]+)\.([a-z\.]{2,6})$/],
+            match: [/^([a-zA-Z0-9_\.-]+)@([/da-zA-Z\.-]+)\.([a-zA-Z\.]{2,6})$/],
         },
         thoughts: [
             {
@@ -35,8 +31,8 @@ const userSchema = new Schema(
     {
         toJson: {
             viturals: true,
+            getters: true,
         },
-        id: false,
     }
 );
 
