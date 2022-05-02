@@ -13,7 +13,7 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            // get: dateFormater,
+            get: dateFormater,
         },
         userName: {
             type: String,
@@ -24,6 +24,7 @@ const thoughtSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
+            getters: true,
         },
         id: false,
     }
