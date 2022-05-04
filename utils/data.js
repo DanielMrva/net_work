@@ -60,9 +60,7 @@ const names = [
     'Monkey',
     'Zhi',
     'Zhong',
-    'Zhuo',
     'Zion',
-    'Zishan',
     'Fox',
     'Zuriel',
     'Xander',
@@ -82,6 +80,48 @@ const names = [
     'Kangaroo',
     'Captain',
     'Doctor',
+    'Jackson',
+    'Polluck',
+    'John Q',
+    'Public',
+    'Taxpayer',
+    'Astronaut',
+    'Superman',
+    'Batman',
+    'WonderTwin',
+    'Wombat',
+    'Turtle',
+    'Sphere',
+    'Charizard',
+    'Faux',
+    'Fox',
+    'Faulty',
+    'Friendly',
+    'Fast',
+    'Slow',
+    'Servile',
+    'Scrumptious',
+    'Crumpet',
+    'Queen',
+    'King',
+    'Fisher',
+    'Destoryer',
+    'Frenchman',
+    'Rus',
+    'Victor',
+    'Davis',
+    'Smiley',
+    'Guy',
+    'Gal',
+    'Dame',
+    'Judy',
+    'Trench',
+    'Bucket',
+    'Slob',
+    'Vile',
+    'Vermin',
+    'Maggie',
+    'Thatcher'
   ];
 
 const email = [
@@ -97,7 +137,7 @@ const email = [
     '@msn.com',
     '@comast.net',
     '@live.com',
-    '@fee.fr',
+    '@free.fr',
     '@gmx.de',
     '@web.de',
     '@outlook.com',
@@ -131,36 +171,10 @@ const generateUserGroup = (int) => {
     return userGroup;
 };
 
-// const generateData = (int) => {
-
-//     let userGroup = [];
-//     let thoughts = [];
-//     for (let i = 0; i < int; i++) {
-//         userGroup.push(
-//             {
-//                 userName: getRandomUser(),
-//                 email: getRandomEmail(),
-//             }
-//         )
-//     }
-
-//     for (let j = 0; j < int; j++) {
-//         const randomInt = (Math.floor(Math.random() * 3))
-//         thoughts.push({
-//             thoughtText: randomText(),
-//             userName: getRandomArrItem(userGroup).userName,
-//             reactions: getReactions(randomInt)
-//         })
-//     }
-//     console.log(userGroup);
-//     console.log(thoughts[0]);
-//     return [userGroup, thoughts];
-// }
-
 const getThoughts = (int, userGroup) => {
     const thoughts = [];
     for (let i = 0; i < int; i++) {
-        const randomInt = (Math.floor(Math.random() * 3))
+        const randomInt = (Math.floor(Math.random() * 4));
         thoughts.push({
             thoughtText: randomText(),
             userName: getRandomArrItem(userGroup).userName,

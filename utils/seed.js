@@ -1,35 +1,7 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
-const {getRandomUser, getRandomEmail, generateUserGroup, getRandomArrItem, getThoughts, randomText, getReactions} = require('./data');
+const {generateUserGroup,  getThoughts, getRandomArrItem} = require('./data');
 
-const thoughtAssociator = function(text, user){
-    Thought.findOne({thoughtText: text})
-        .then((thought) => 
-            !thought
-                ? console.log(`could not find ${thought}`)
-                : User.findOneAndUpdate(
-                {userName: thought.userName},
-                {$addToSet: {thoughts: thought._id}},
-                {runValidators: true, new: true}
-            )
-            .then((user) => console.log(user))
-        )
-        .catch((err) => console.log(err));
-};
-
-const thoughtAssociate = async function(text){
-    const thought = await Thought.findOne({thoughtText: text})
-    if (!thought) {
-        console.log('could not find thought')
-    } else {
-        const user = await User.findOneAndUpdate(
-            {userName: thought.userName},
-            {$addToSet: {thoughts: thought._id}},
-            {runValidators: true, new: true}
-        )
-        console.log(user);
-    }
-}
 
 
 connection.on('error', (err) => err);
@@ -42,21 +14,60 @@ connection.once('open', async () => {
 
     let userGroup = generateUserGroup(10);
 
-    let thoughts = getThoughts(10, userGroup);
+    let thoughts = getThoughts(15, userGroup);
 
 
     
     await Thought.collection.insertMany(thoughts);
     await User.collection.insertMany(userGroup);
-
-    async function associateThoughts(thoughts) {
-        for (let index = 0; index < thoughts.length; index++) {
-            const text = thoughts[index].thoughtText;
-            const user = thoughts[index].userName;
-            thoughtAssociator(text);
+    for (let index = 0; index < thoughts.length; index++) {
+        const element = thoughts[index];
+        await Thought.findOne({thoughtText: element.thoughtText})
+        .then((thought) => 
+            !thought
+            ? console.log('no thought found')
+            : User.findOneAndUpdate(
+                {userName: element.userName},
+                {$addToSet: {thoughts: element._id}}
+                
+                )
+            .then((user) => 
+                !user 
+                ? console.log('user no found')
+                : console.log(`added ${element._id}`))
+        )
+        .catch((err) => console.log(err))
+    }
+    for (let r = 0; r < 2; r++) {
+        for (let index = 0; index < userGroup.length; index++) {
+            const userOne = userGroup[index];
+            const userTwo = getRandomArrItem(userGroup);
+            if (userOne.userName != userTwo.userName) {
+                await User.findOne({userName: userOne.userName})
+                        .then((user1) => 
+                            !user1
+                            ? console.log('no user found')
+                            : User.findOneAndUpdate(
+                                {userName: userTwo.userName},
+                                {$addToSet: {friends: user1._id}},
+                                {new: true})
+                            .then((user2) => 
+                                !user2
+                                    ? console.log('no friend found')
+                                    : User.findOneAndUpdate(
+                                        {userName: userOne.userName},
+                                        {$addToSet: {friends: user2._id}},
+                                        {new: true}
+                                    )
+                            )
+                        )
+                        .catch((err) => console.log(err))
+            }
+            
         }
     }
-    await associateThoughts(thoughts);
+    
+
     console.table(userGroup);
     process.exit(0);
 
