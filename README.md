@@ -22,7 +22,9 @@
   Open project in Node terminal or code editor terminal and run "npm intall" to install dependencies.
 
 
-  ![](./assets/install.jpg)
+  ![](./assets/i1.jpg)
+
+  ![](./assets/i2.jpg)
   
   ## Usage 
   After installation of dependencies, you can run the server by running:
@@ -49,9 +51,9 @@
   Post (create) routes will use the same general format as get - all routes, with the exception of having json bodies formated to their particular models (see user, thought, and reaction models for further details on Json body structure).
 
 
-  ![](./assets/use1.jpg)
+  ![](./assets/u1.jpg)
 
-  ![](./assets/use2.jpg)
+  ![](./assets/u2.jpg)
 
   ## Contribution
   Please email any suggestions to my devmail included in my github profile. Alternatively, feel free to fork this project, modify/improve, and then refer me to your forked repo.
