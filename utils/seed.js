@@ -8,18 +8,21 @@ connection.on('error', (err) => err);
 
 connection.once('open', async () => {
     console.log('connected')
-
+    //clears our db at begining
     await User.deleteMany({});
     await Thought.deleteMany({});
 
+    //runs our generated users
     let userGroup = generateUserGroup(10);
-
+    //runs our generated thoughts
     let thoughts = getThoughts(15, userGroup);
 
 
-    
+    //inserts thoughts and users into DB
     await Thought.collection.insertMany(thoughts);
     await User.collection.insertMany(userGroup);
+
+    //associates thoughts with their speficied users
     for (let index = 0; index < thoughts.length; index++) {
         const element = thoughts[index];
         await Thought.findOne({thoughtText: element.thoughtText})
@@ -38,6 +41,8 @@ connection.once('open', async () => {
         )
         .catch((err) => console.log(err))
     }
+
+    //loops through userGroup (at least) twice to make friends
     for (let r = 0; r < 2; r++) {
         for (let index = 0; index < userGroup.length; index++) {
             const userOne = userGroup[index];

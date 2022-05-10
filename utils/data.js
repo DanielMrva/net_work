@@ -11,12 +11,13 @@ const lorem = new LoremIpsum({
     }
 });
 
+//
 const randomText = () => {
     const rndInt = Math.floor((Math.random() * 3) + 1) ;
     return lorem.generateSentences(rndInt);
 };
 
-
+//array of possible names
 const names = [
     'Narwal',
     'Vine',
